@@ -1,33 +1,52 @@
-from typing import List, Dict, Any
+from fastapi import FastAPI
 
-def get_customers_by_credit_limit_range():
-    """Return customers with credit limits outside the normal range."""
-    pass
+from app.dal import *
+from db_init import init_database
 
-def get_orders_with_null_comments():
-    """Return orders that have null comments."""
-    pass
+app = FastAPI()
 
-def get_first_5_customers():
-    """Return the first 5 customers."""
-    pass
+init_database()
 
-def get_payments_total_and_average():
-    """Return total and average payment amounts."""
-    pass
+@app.get("/health")
+def health_check():
+    return {"status": "ok"}
 
-def get_employees_with_office_phone():
-    """Return employees with their office phone numbers."""
-    pass
+@app.get("/q1/customers-credit-limit-outliers")
+def customers_credit_limit_outliers():
+    result = get_customers_by_credit_limit_range()
+    return result
 
-def get_customers_with_shipping_dates():
-    """Return customers with their order shipping dates."""
-    pass
+@app.get("/q2/orders-null-comments")
+def orders_null_comments():
+    result = get_orders_with_null_comments()
+    return result
 
-def get_customer_quantity_per_order():
-    """Return customer name and quantity for each order."""
-    pass
+@app.get("/q3/customers-first-5")
+def customers_first_5():
+    result =get_first_5_customers()
+    return result
 
-def get_customers_payments_by_lastname_pattern(pattern: str = "son"):
-    """Return customers and payments for last names matching pattern."""
-    pass
+@app.get("/q4/payments-total-average")
+def payments_total_average():
+    result =get_payments_total_and_average()
+    return result
+
+@app.get("/q5/employees-office-phone")
+def employees_office_phone():
+    result =get_employees_with_office_phone()
+    return result
+
+@app.get("/q6/customers-shipping-dates")
+def customers_shipping_dates():
+    result =get_customers_with_shipping_dates()
+    return result
+
+@app.get("/q7/customer-quantity-per-order")
+def customer_quantity_per_order():
+    result =get_customer_quantity_per_order()
+    return result
+
+@app.get("/q8/customers-payments-by-lastname-pattern")
+def customers_payments_by_lastname_pattern(pattern: str = "son"):
+    result =get_customers_payments_by_lastname_pattern()
+    return result
