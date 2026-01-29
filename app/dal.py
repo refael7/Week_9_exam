@@ -116,8 +116,8 @@ def get_customers_payments_by_lastname_pattern(pattern: str = "son"):
     cursor = conn.cursor()
     sql8 = """  
      
-    SELECT c.customerName AS ,
-    e.firstName AS ,
+    SELECT c.customerName  ,
+    e.firstName  ,
     SUM(p.amount) AS total
     FROM customers c
     JOIN employees e
